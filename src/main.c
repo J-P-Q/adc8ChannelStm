@@ -3,7 +3,7 @@
 
 #include <tmr2.h>
 
-volatile uint8_t msCounter = 0;
+volatile uint16_t msCounter = 0;
 
 int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
@@ -19,6 +19,14 @@ int main(void){
     return 0;
 }
 
-void TIM2_IQRHandler(void){
-    GPIOC -> ODR ^= (1 << 13);
+void TIM2_IRQHandler(void){
+    if(TIM2 -> SR & TIM_SR_UIF){
+        TIM2 -> SR &= ~TIM_SR_UIF;
+        
+        msCounter ++;
+        if(msCounter > 1000){
+            GPIOC -> ODR ^= (1 << 13);
+            msCounter = 0;
+        }    
+    }
 }

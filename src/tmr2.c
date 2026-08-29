@@ -10,10 +10,13 @@ void tmr2_init(void){
     TIM2 -> CNT = 0x00000000;
 
     // Prescaler
-    // f_tmr = f_CK_PSC / (PSC + 1) = 16MHz/(psc + 1)
-    // 1kHz sampling rate
-    TIM2 -> PSC = 15999;
-    TIM2 -> ARR = 0xffffffff;
+    // f_CK_CNT = f_CK_PSC / (PSC + 1) = 16MHz/(psc + 1)
+    // 10kHz max sampling freq
+    TIM2 -> PSC = 1599;
+
+    // Sampling Freq 1kHz (1ms)
+    // period = (ARR + 1) / 10kHz
+    TIM2 -> ARR = 9;
 
     NVIC_EnableIRQ(TIM2_IRQn);
 

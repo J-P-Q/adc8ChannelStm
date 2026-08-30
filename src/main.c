@@ -16,6 +16,8 @@ volatile uint8_t data1 = 0;
 volatile uint8_t data0 = 0;
 volatile uint16_t data = 0;
 
+volatile uint8_t testUart = 0xff;
+
 int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 
@@ -39,6 +41,9 @@ void TIM2_IRQHandler(void){
         TIM2 -> SR &= ~TIM_SR_UIF;
 
         adc_convert();
+
+        uart_transmit(testUart);
+        NVIC_EnableIRQ(USART1_IRQn);
         msCounter++;
         /* 
         TEST 1sec blink
@@ -81,6 +86,7 @@ void USART1_IRQHandler(void){
             uart_transmit(ringBuffer[uartIndex]);
             uartIndex = (uartIndex + 1)%32;
             count --;
+            testUart--;
         }
         else{
             NVIC_DisableIRQ(USART1_IRQn);

@@ -7,9 +7,14 @@
 
 volatile uint16_t msCounter = 0;
 
-volatile uint16_t frame[8];
+volatile uint8_t ringBuffer[32];
 volatile uint8_t adcIndex = 0;
-volatile uint8_t i = 0;
+volatile uint8_t uartIndex = 0;
+volatile uint8_t count = 0;
+
+volatile uint8_t data1 = 0;
+volatile uint8_t data0 = 0;
+volatile uint8_t data = 0;
 
 int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
@@ -17,13 +22,11 @@ int main(void){
     GPIOC -> MODER |= (1 << 13*2);
     GPIOC -> ODR &= ~(1 << 13);
 
-    //adc_init();
+    adc_init();
     uart_init();
     tmr2_init();
     while(1){
-        //GPIOC -> ODR |= (1 << 13);
-        //uart_transmit(i);
-        //i++;
+        
 
 
     }
@@ -53,18 +56,35 @@ void TIM2_IRQHandler(void){
 void ADC_IRQHandler(void){
     if(ADC1 -> SR & ADC_SR_EOC){
         ADC1 -> SR &= ~ADC_SR_EOC;
-        frame[adcIndex] = (uint16_t)(ADC1 -> DR);
-        adcIndex = (adcIndex+ 1)%8;
-        uart_transmit(msCounter);
+
+        data = ADC1 -> DR;
+        
+        data1 = (data >> 8) & 0xFF;
+        data0 = data & 0x00FF;
+        
+        ringBuffer[adcIndex] = data1;
+        count++;
+        adcIndex = (adcIndex + 1)%32;
+
+        ringBuffer[adcIndex] = data0;
+        count++;
+        adcIndex = (adcIndex + 1)%32; 
+       
+        NVIC_EnableIRQ(USART1_IRQn);
     }
     return;
 }
 
 void USART1_IRQHandler(void){
     if(USART1 -> SR & USART_SR_TC){
-        //if(count > 0){
-            uart_transmit(0xAA);
-        //}
+        if(count > 0){
+            uart_transmit(ringBuffer[uartIndex]);
+            uartIndex = (uartIndex + 1)%32;
+            count --;
+        }
+        else{
+            NVIC_DisableIRQ(USART1_IRQn);
+        }
     }
 
 }

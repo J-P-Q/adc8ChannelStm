@@ -2,6 +2,12 @@
 
 void adc_init(void){
     RCC -> APB2ENR |= RCC_APB2ENR_ADC1EN;
+    RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+
+    volatile uint8_t i;
+    for(i = 0; i<8; i++){
+        GPIOA -> MODER |= (3 << i*2);
+    }
 
     // 12 bit = 15 ADC_CLK cycles       00
     // 10 bit = 13 ADC_CLK cycles       01
@@ -16,7 +22,6 @@ void adc_init(void){
     Cant say for sure min requirements of output impedance
     */
     // Using 84 cycles for sampling
-    volatile uint8_t i;
     for(i = 0; i < 8; i++){
         ADC1 -> SMPR2 |= (4 << i*3);
     }

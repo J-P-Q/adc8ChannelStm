@@ -26,7 +26,7 @@ void adc_init(void){
         ADC1 -> SMPR2 |= (4 << i*3);
     }
 
-    ADC1 -> SQR1 |= (7 << 20);      // 7 conversions
+    ADC1 -> SQR1 |= (7 << 20);      // 8 conversions
 
 
     // channel sequence regs

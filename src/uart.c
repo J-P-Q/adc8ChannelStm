@@ -11,12 +11,12 @@ void uart_init(void){
     GPIOB -> AFR[0] |= (7 << 6*4);
 
     //Baud = f_ck / [8 * (2- OVER8) * USARTDIV]
-    // 230Kbps -> 4.3125 in usartdiv
-    //USART1 -> BRR |= (0xFFF0 & (4 << 4));
-    //USART1 -> BRR |= (0x000F & 5);
+    //230Kbps -> 4.3125 in usartdiv
+    USART1 -> BRR |= (0xFFF0 & (4 << 4));
+    USART1 -> BRR |= (0x000F & 5);
 
-    USART1 -> BRR |= (0xFFF0 & (104 << 4));
-    USART1 -> BRR |= (0x000F & 3);
+    //USART1 -> BRR |= (0xFFF0 & (104 << 4));
+    //USART1 -> BRR |= (0x000F & 3);
 
     //USART1 -> CR1 |= USART_CR1_TCIE;
 

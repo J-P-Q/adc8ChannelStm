@@ -3,11 +3,13 @@
 
 #include <tmr2.h>
 #include <adc.h>
+#include <uart.h>
 
 //volatile uint16_t msCounter = 0;
 
 volatile uint16_t frame[8];
 volatile uint8_t adcIndex = 0;
+volatile uint8_t i = 0;
 
 int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
@@ -15,8 +17,11 @@ int main(void){
     GPIOC -> MODER |= (1 << 13*2);
 
     adc_init();
+    uart_init();
     tmr2_init();
     while(1){
+        uart_transmit(i);
+        i++;
 
 
     }
@@ -50,3 +55,12 @@ void ADC1_IRQHandler(void){
     }
     return;
 }
+
+//void USART1_IRQHandler(void){
+//    if(USART1 -> SR & USART_SR_TC){
+//        if(count > 0){
+//            uart_transmit();
+//        }
+//    }
+//
+//}

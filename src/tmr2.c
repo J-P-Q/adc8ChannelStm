@@ -16,7 +16,7 @@ void tmr2_init(void){
 
     // Sampling Freq 1kHz (1ms)
     // period = (ARR + 1) / 10kHz
-    TIM2 -> ARR = 9;
+    TIM2 -> ARR = 4;
 
     NVIC_EnableIRQ(TIM2_IRQn);
 

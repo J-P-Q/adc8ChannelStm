@@ -15,10 +15,8 @@ void uart_init(void){
     USART1 -> BRR |= (0xFFF0 & (4 << 4));
     USART1 -> BRR |= (0x000F & 5);
 
-    //USART1 -> BRR |= (0xFFF0 & (104 << 4));
-    //USART1 -> BRR |= (0x000F & 3);
-
-    //USART1 -> CR1 |= USART_CR1_TCIE;
+    NVIC_EnableIRQ(USART1_IRQn);
+    USART1 -> CR1 |= USART_CR1_TCIE;
 
     USART1 -> CR1 |= USART_CR1_TE;
     USART1 -> CR1 |= USART_CR1_UE;
@@ -26,7 +24,8 @@ void uart_init(void){
 }
 
 void uart_transmit(uint8_t data){
-    while(!(USART1 -> SR & USART_SR_TXE));
-    USART1 -> DR = data;
+    if((USART1 -> SR & USART_SR_TXE)){
+        USART1 -> DR = data;
+    }
     return;
 }

@@ -37,7 +37,6 @@ void TIM2_IRQHandler(void){
 
         adc_convert();
         msCounter++;
-        uart_transmit(msCounter);
         /* 
         TEST 1sec blink
 
@@ -61,11 +60,11 @@ void ADC_IRQHandler(void){
     return;
 }
 
-//void USART1_IRQHandler(void){
-//    if(USART1 -> SR & USART_SR_TC){
-//        if(count > 0){
-//            uart_transmit();
-//        }
-//    }
-//
-//}
+void USART1_IRQHandler(void){
+    if(USART1 -> SR & USART_SR_TC){
+        //if(count > 0){
+            uart_transmit(0xAA);
+        //}
+    }
+
+}

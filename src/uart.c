@@ -26,8 +26,7 @@ void uart_init(void){
 }
 
 void uart_transmit(uint8_t data){
-    if(USART1 -> SR & USART_SR_TXE){
-        USART1 -> DR = data;
-    }
+    while(!(USART1 -> SR & USART_SR_TXE));
+    USART1 -> DR = data;
     return;
 }

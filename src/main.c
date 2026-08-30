@@ -5,7 +5,7 @@
 #include <adc.h>
 #include <uart.h>
 
-//volatile uint16_t msCounter = 0;
+volatile uint16_t msCounter = 0;
 
 volatile uint16_t frame[8];
 volatile uint8_t adcIndex = 0;
@@ -15,13 +15,15 @@ int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 
     GPIOC -> MODER |= (1 << 13*2);
+    GPIOC -> ODR &= ~(1 << 13);
 
-    adc_init();
+    //adc_init();
     uart_init();
     tmr2_init();
     while(1){
-        uart_transmit(i);
-        i++;
+        //GPIOC -> ODR |= (1 << 13);
+        //uart_transmit(i);
+        //i++;
 
 
     }
@@ -34,6 +36,8 @@ void TIM2_IRQHandler(void){
         TIM2 -> SR &= ~TIM_SR_UIF;
 
         adc_convert();
+        msCounter++;
+        uart_transmit(msCounter);
         /* 
         TEST 1sec blink
 
@@ -47,11 +51,12 @@ void TIM2_IRQHandler(void){
     return;
 }
 
-void ADC1_IRQHandler(void){
+void ADC_IRQHandler(void){
     if(ADC1 -> SR & ADC_SR_EOC){
+        ADC1 -> SR &= ~ADC_SR_EOC;
         frame[adcIndex] = (uint16_t)(ADC1 -> DR);
         adcIndex = (adcIndex+ 1)%8;
-
+        uart_transmit(msCounter);
     }
     return;
 }

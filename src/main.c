@@ -14,7 +14,7 @@ volatile uint8_t count = 0;
 
 volatile uint8_t data1 = 0;
 volatile uint8_t data0 = 0;
-volatile uint8_t data = 0;
+volatile uint16_t data = 0;
 
 int main(void){
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;

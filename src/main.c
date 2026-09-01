@@ -42,7 +42,7 @@ void TIM2_IRQHandler(void){
 
         adc_convert();
 
-        uart_transmit(testUart);
+        uart_transmit(0xAA);
         NVIC_EnableIRQ(USART1_IRQn);
         msCounter++;
         /* 

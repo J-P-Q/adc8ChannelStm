@@ -4,6 +4,7 @@
 #include <tmr2.h>
 #include <adc.h>
 #include <uart.h>
+#include <pll.h>
 
 volatile uint16_t msCounter = 0;
 
@@ -19,6 +20,7 @@ volatile uint16_t data = 0;
 volatile uint8_t testUart = 0xff;
 
 int main(void){
+    pll_init();
     RCC -> AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 
     GPIOC -> MODER |= (1 << 13*2);

@@ -17,8 +17,10 @@ void adc_init(void){
 
     /*
     Convertion + sampling time computation
-    [(15 cycles + 480 cycles)/8MHz] * 8channels = 0.50ms
-    [(15 cycles + 84 cycles)/8MHz] * 8 channels = 0.99us
+    sysclk = 72MHz
+    /2 -> 36MHz
+    [(15 cycles + 480 cycles)/36MHz] * 8channels = 0.11ms
+    [(15 cycles + 84 cycles)/36MHz] * 8 channels = 22us
     Cant say for sure min requirements of output impedance
     */
     // Using 84 cycles for sampling

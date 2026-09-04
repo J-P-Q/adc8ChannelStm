@@ -10,14 +10,11 @@ void uart_init(void){
     GPIOB -> MODER |= (2 << 6*2);
     GPIOB -> AFR[0] |= (7 << 6*4);
 
+    // f_ck = 72MHz
     //Baud = f_ck / [8 * (2- OVER8) * USARTDIV]
-    //230Kbps -> 4.3125 in usartdiv
-    // 230k Baud
-    //USART1 -> BRR |= (0xFFF0 & (4 << 4));
-    //USART1 -> BRR |= (0x000F & 5);
-    // 896K Baud
-    USART1 -> BRR |= (0xFFF0 & (1 << 4));
-    USART1 -> BRR |= (0x000F & 2);
+    // 896K Baud -> USARTDIV = 5.0223
+    USART1 -> BRR |= (0xFFF0 & (5 << 4));
+    USART1 -> BRR |= (0x000F & 1);
 
 
     NVIC_EnableIRQ(USART1_IRQn);

@@ -46,16 +46,16 @@ void TIM2_IRQHandler(void){
 
         uart_transmit(0xAA);
         NVIC_EnableIRQ(USART1_IRQn);
-        msCounter++;
-        /* 
-        TEST 1sec blink
+        
+        /*
+        //TEST 1sec blink
 
         msCounter ++;
         if(msCounter > 1000){
             GPIOC -> ODR ^= (1 << 13);
             msCounter = 0;
         }    
-        */
+        */ 
     }
     return;
 }

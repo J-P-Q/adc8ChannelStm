@@ -18,7 +18,7 @@ An STM32F401CC-based 8-channel ADC converter and UART transmitter, prototyped as
 
 ## Testing
 
-Inputs tested using potentiometers on 2 channels at a time, with the remaining channels held at fixed 3.3V or 0V. Output verified using a pyserial-based Python script: <link>
+Inputs tested using potentiometers on 2 channels at a time, with the remaining channels held at fixed 3.3V or 0V. Output verified using a pyserial-based Python script: https://github.com/J-P-Q/rPiUart
 
 ## Status
 

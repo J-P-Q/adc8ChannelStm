@@ -29,6 +29,5 @@ Currently functions as a raw ADC-to-UART stream to a receiver (planned to be a R
 - PlatformIO (VS Code)
 
 ## Demo
-
-<link>
+https://youtube.com/shorts/aFXD7BOa9jo?feature=share
 

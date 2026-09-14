@@ -2,3 +2,7 @@ electrode attached to flexor digitorum profundus to detect cup grip but not sure
 https://sketchfab.com/3d-models/flexor-digitorum-profundus-dda2162d4cb94b69bb505b11022ea6c3
 
 sensor used for emgTest1.csv is the "ECG sensor module AD8238"
+
+emgTest2 uses Flexor Digitorum Profundus
+
+emgTest2 uses Flexor Digitorum Superficialis 

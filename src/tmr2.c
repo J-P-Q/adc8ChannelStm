@@ -10,9 +10,9 @@ void tmr2_init(void){
     TIM2 -> CNT = 0x00000000;
 
     // Prescaler
-    // f_CK_CNT = f_CK_PSC / (PSC + 1) = 16MHz/(psc + 1)
+    // f_CK_CNT = f_CK_PSC / (PSC + 1) = 72MHz/(psc + 1)
     // 10kHz max sampling freq
-    TIM2 -> PSC = 1599;
+    TIM2 -> PSC = 7199;
 
     // Sampling Freq 1kHz (1ms)
     // period = (ARR + 1) / 10kHz

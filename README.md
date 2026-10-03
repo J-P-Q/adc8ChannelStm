@@ -22,7 +22,7 @@ Inputs tested using potentiometers on 2 channels at a time, with the remaining c
 
 ## Status
 
-Currently functions as a raw ADC-to-UART stream to a receiver (planned to be a Raspberry Pi). The STM32 upgrade opens the possibility of pre-transmission computation on-MCU to reduce receiver-side load. The PLL branch exists to create timing margin for this, but on-MCU computation itself is not yet implemented.
+Main branch now uses PLL code from the PLL branch and the number of ADC conversion cycles was set to max. 
 
 ## Build / Setup
 

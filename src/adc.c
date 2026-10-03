@@ -27,7 +27,7 @@ void adc_init(void){
     */
     // Using 84 cycles for sampling
     for(i = 0; i < 8; i++){
-        ADC1 -> SMPR2 |= (4 << i*3);
+        ADC1 -> SMPR2 |= (7 << i*3);
     }
 
     ADC1 -> SQR1 |= (7 << 20);      // 8 conversions
